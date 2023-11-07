@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+</head>
+<body>
+    <form action="inserts/inserirbd.php" method="POST">
+
+        <label>Nome: (Opcional)</label><br>
+        <input type="text" name="nome"><br><br>
+        <label>Mensagem:</label><br>
+        <input type="text" name="mensagem" size="40"><br><br>
+        <label>Unidade:</label><br>
+        <input type="radio" name="unidade" value="bessa">Bessa<br>
+        <input type="radio" name="unidade" value="epitacio">Epitacio<br>
+        <input type="radio" name="unidade" value="centro">Centro<br>
+        <input type="radio" name="unidade" value="geisel">Geisel<br><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    
+</body>
+</html>
