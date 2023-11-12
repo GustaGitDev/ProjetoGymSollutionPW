@@ -2,11 +2,10 @@
 
     include_once("../config.inc.php");
 
-    // $nome = $_REQUEST['nome'];
-    // $cpf = $_REQUEST['cpf'];
-    // $telefone = $_REQUEST['telefone'];
-    // $sexo = $_REQUEST['sexo'];
-    // $nascimento = $_REQUEST['nascimento'];
+    // Alteração da forma de recebimento de dados pelo form
+    // para garantir que não ira ocorrer problemas ao salvar os dados
+    // no banco de dados (MariaDB)
+
     $nome = mysqli_real_escape_string($conn, $_REQUEST['nome']);
     $cpf = mysqli_real_escape_string($conn, $_REQUEST['cpf']);
     $telefone = mysqli_real_escape_string($conn, $_REQUEST['telefone']);
@@ -20,6 +19,8 @@
 
     echo "\n";
 
+?>
+<br> <br>
+<?php
     echo "Obrigado, $nome. Cadastro realizado com sucesso!";
-
 ?>
