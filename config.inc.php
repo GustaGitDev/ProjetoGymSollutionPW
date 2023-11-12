@@ -1,6 +1,6 @@
 <?php
 
-    $conn = pg_connect("host=localhost dbname=DBgym user=postgres password=Gunow095");
+    $conn = pg_connect("host=localhost dbname=DBgym user=postgres password=MFFO1803");
 
     if($conn){
         echo "Conexão estabelecida com sucesso!";
