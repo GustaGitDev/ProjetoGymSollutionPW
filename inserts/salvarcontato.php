@@ -6,9 +6,13 @@
     $mensagem = $_REQUEST['mensagem'];
     $unidade = $_REQUEST['unidade'];
 
-    $sql = "INSERT INTO contato (nome, mensagem, unidade)
+    $queryInsert = "INSERT INTO schemagym.dadoscontato (nome, mensagem, unidade)
             VALUES ('$nome', '$mensagem', '$unidade')";
 
-    $insert = mysqli_query($conn, $sql);
+    $insert = pg_query($conn, $queryInsert);
 
+?>
+<br> <br>
+<?php
+    echo "Mensagem enviada com sucesso!";
 ?>

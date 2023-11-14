@@ -1,0 +1,65 @@
+body {
+    font-family:'Franklin Gothic Medium', ;
+    background-color: #000000;
+    color: #ff0000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #000000;
+    color: #db0808;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(243, 1, 1, 0.986);
+    padding: 20px;
+    width: 300px;
+}
+h2 {
+    color: #db0808; /* Vermelho mais claro */
+    font-size: 240%;
+}
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input, .form-group select {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ff0000;
+    border-radius: 4px;
+    background-color: #111;
+    color: #ff0000;
+}
+
+.form-group input[type="submit"] {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.btn-voltar {
+    display: inline-block;
+    background-color: #ff0000;
+    border: #db0808;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+.btn-voltar:hover {
+    background-color: #030000; /* Altera a cor ao passar o mouse */
+}

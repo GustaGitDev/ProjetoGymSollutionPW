@@ -1,0 +1,85 @@
+/* estilo.css */
+/* Estilizando o menu */
+
+
+main {
+
+    background-color: rgba(255, 0, 0, 0.849); /* Define o fundo da página como preto */
+    color: red; /* Define a cor do texto como vermelho */
+    height: 100vh;
+    max-height: auto;
+    margin: 0;
+    padding: 0;
+    border: 20px solid #000000;
+    
+    
+    
+    
+
+    
+}
+nav ul {
+    background-color: #000000; /* Fundo preto para o menu */
+    list-style:none;
+    text-align:center; /* Alinhar o texto ao centro */
+    padding: 30px; /* aumentar altura da borda*/
+    position: relative; /* Necessário para usar z-index */
+    z-index: 1; /* Garante que o menu esteja acima da imagem */
+    border-radius: 5px;
+    width: 63vw; /* faz o limite da borda */
+    margin-left: -50px;
+    
+    
+}
+
+.menu-item {
+    display: inline-block;
+    margin-right: 25px; /* Espaçamento entre os botões do menu */
+    
+    
+    
+    
+ 
+}
+
+.menu-item a {
+    color: rgb(255, 255, 255); /* Texto vermelho para os links do menu */
+    text-decoration: none; /* Remover sublinhado dos links */
+    font-size: 18px; /* Tamanho da fonte dos links */
+    border: 3px solid #f8f8f8;
+    letter-spacing: 5px;
+    
+    
+}
+
+/* Estilizando os links quando passam o mouse por cima */
+.menu-item a:hover {
+    color: white; /* Mudar a cor do texto para branco quando o mouse passa por cima */
+    
+}
+
+.imagem-centralizada {
+    text-align: center; /* Centraliza a imagem horizontalmente */
+    margin-top: 40px; /* Adiciona um espaço superior (ajuste conforme necessário) */
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0 18vw;
+}
+
+img {
+    width: 63vw; /* Ajuste a largura conforme necessário */
+    height: 65vh; /* Mantém a proporção da imagem */
+    margin-top: -50px ;
+    margin-left: -20px;
+    
+}
+.header {
+    height: 50px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+

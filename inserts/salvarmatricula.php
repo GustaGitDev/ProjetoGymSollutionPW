@@ -4,20 +4,21 @@
 
     // Alteração da forma de recebimento de dados pelo form
     // para garantir que não ira ocorrer problemas ao salvar os dados
-    // no banco de dados (MariaDB)
+    // no banco de dados (PostGreSql)
 
-    $nome = mysqli_real_escape_string($conn, $_REQUEST['nome']);
-    $cpf = mysqli_real_escape_string($conn, $_REQUEST['cpf']);
-    $telefone = mysqli_real_escape_string($conn, $_REQUEST['telefone']);
-    $sexo = mysqli_real_escape_string($conn, $_REQUEST['sexo']);
-    $nascimento = mysqli_real_escape_string($conn, $_REQUEST['nascimento']);
+    $nome = $_REQUEST['nome'];
+    $cpf = $_REQUEST['cpf'];
+    $telefone = $_REQUEST['telefone'];
+    $sexo = $_REQUEST['sexo'];
+    $nascimento = $_REQUEST['nascimento'];
 
-    $sql = "INSERT INTO matricula (nome, cpf, telefone, sexo, nascimento)
+    $queryInsert = "INSERT INTO schemagym.dadosmatricula (nome, cpf, telefone, sexo, nascimento)
             VALUES ('$nome', '$cpf', '$telefone', '$sexo', '$nascimento')";
 
-    $insert = mysqli_query($conn, $sql);
-
+    $insert = pg_query($conn, $queryInsert);
     echo "\n";
+
+
 
 ?>
 <br> <br>
