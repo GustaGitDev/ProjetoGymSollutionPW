@@ -1,76 +1,76 @@
-let users = []; // Array para armazenar os usuários
-let editingIndex = -1; // Índice do usuário em edição, -1 se nenhum estiver sendo editado
-
 function openAddUserModal() {
-  document.getElementById('edit-user-modal').style.display = 'block';
+  loadForm('add-user-form.php');
 }
 
 function closeAddUserModal() {
   document.getElementById('edit-user-modal').style.display = 'none';
-  // Limpa os campos do formulário ao fechar o modal
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
+}
+
+function openEditUserModal(cpf) {
+  loadForm('edit-user-form.php?cpf=' + cpf);
+}
+
+function openDeleteUserModal(cpf) {
+  loadForm('delete-user-form.php?cpf=' + cpf);
+}
+
+function loadForm(formUrl) {
+  const modalContent = document.getElementById('modal-content');
+  
+  // Limpar o conteúdo atual
+  modalContent.innerHTML = '';
+
+  // Carregar o conteúdo do formulário
+  fetch(formUrl)
+    .then(response => response.text())
+    .then(data => {
+      modalContent.innerHTML = data;
+      document.getElementById('edit-user-modal').style.display = 'block';
+    })
+    .catch(error => console.error('Erro ao carregar o formulário:', error));
+}
+
+function saveUser() {
+  const cpf = document.getElementById('cpf').value; // Adicione um campo oculto no formulário para armazenar o CPF
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+
+  // Aqui você pode adicionar a lógica para enviar os dados para o backend (usando AJAX)
+  const formData = new FormData();
+  formData.append('cpf', cpf);
+  formData.append('name', name);
+  formData.append('email', email);
+
+  fetch('update-user.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log(data.message);
+      renderUserTable(); // Atualiza a tabela após o sucesso
+      closeAddUserModal();
+    } else {
+      console.error(data.message);
+    }
+  })
+  .catch(error => console.error('Erro na solicitação AJAX:', error));
+
 }
 
 function renderUserTable() {
   const tbody = document.getElementById('user-table-body');
   tbody.innerHTML = '';
 
-  users.forEach((user, index) => {
+  users.forEach(user => {
     const row = `<tr>
-      
-      <td>${user.name}</td>
-      <td>${user.email}</td>
+      <td>${user.nome}</td>
       <td>
-        <button onclick="editUser(${index})" class="button edit">Editar</button>
-        <button onclick="deleteUser(${index})" class="button delete">Deletar</button>
+        <button onclick="openEditUserModal('${user.cpf}')">Editar</button>
+        <button onclick="openDeleteUserModal('${user.cpf}')">Excluir</button>
       </td>
     </tr>`;
     tbody.innerHTML += row;
   });
 }
-
-function saveUser() {
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-
-  if (editingIndex === -1) {
-    // Adiciona um novo usuário se não estiver em modo de edição
-    const user = { name, email };
-    users.push(user);
-  } else {
-    // Atualiza os dados se estiver em modo de edição
-    users[editingIndex].name = name;
-    users[editingIndex].email = email;
-    // Limpa o índice de edição após salvar
-    editingIndex = 0;
-  }
-
-  renderUserTable();
-  closeAddUserModal();
-}
-
-function editUser(index) {
-  const user = users[index];
-  document.getElementById('name').value = user.name;
-  document.getElementById('email').value = user.email;
-
-  // Define o índice de edição para o índice do usuário atual
-  editingIndex = index;
-
-  openAddUserModal();
-}
-
-function deleteUser(index) {
-  users.splice(index, 1);
-  renderUserTable();
-}
-
-//Inicialização com dados fictícios
-users = [
-  { name: , email: 'usuario1@email.com' },
-  { name: , email: 'usuario2@email.com' }
-];
-
-// Renderiza a tabela inicial
-renderUserTable();

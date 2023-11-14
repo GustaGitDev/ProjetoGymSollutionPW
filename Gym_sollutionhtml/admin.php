@@ -11,7 +11,7 @@
   <div id="admin-dashboard">
     <h2>Lista de Usuários</h2>
     <button onclick="openAddUserModal()" class="button">Adicionar Usuário</button>
-    
+
     <table>
       <thead>
         <tr>
@@ -20,7 +20,6 @@
         </tr>
       </thead>
       <tbody id="user-table-body">
-        <!-- Usuários serão adicionados aqui dinamicamente -->
         <?php
           include_once("../config.inc.php");
 
@@ -29,17 +28,15 @@
 
           if ($resultSelect) {
               while ($row = pg_fetch_array($resultSelect)) {
-                  print "<tr>";
+                  echo "<tr>";
                   $cpf = $row['cpf'];
-                  print "<td> ". $row['nome'] . " </td>";
+                  echo "<td>" . $row['nome'] . "</td>";
 
-                  print "<td> 
-                          // <button onclick=\"location.href='?page=editar&cpf=".$row['cpf']."';\">Editar</button>
-                          <button >Editar</button>
-
-                          <button id=\"meuBotao\">Excluir</button>
+                  echo "<td> 
+                          <button onclick=\"openEditUserModal('$cpf')\">Editar</button>
+                          <button onclick=\"openDeleteUserModal('$cpf')\">Excluir</button>
                         </td>";
-                  print "</tr>";
+                  echo "</tr>";
               }
           } else {
               echo "Erro na consulta";
@@ -47,58 +44,62 @@
 
           // Certifique-se de fechar a conexão após o uso
           pg_close($conn);
-
         ?>
       </tbody>
     </table>
   </div>
 
   <div id="edit-user-modal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" id="modal-content">
       <span class="close" onclick="closeAddUserModal()">&times;</span>
-      <h2>Adicionar/Editar Usuário</h2>
-      <form id="user-form">
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <div>
-          <button type="button" onclick="saveUser()" class="button edit">Salvar</button>
-          <button type="button" onclick="deleteUser()" class="button delete">Deletar</button>
-        </div>
-      </form>
-      <div>
-      </div>
+      <!-- O conteúdo do formulário será carregado dinamicamente aqui -->
     </div>
   </div>
 
-  <script>
-    
-    var meuBotao = document.getElementById('meuBotao');
+  <script src="script.js"></script>
 
-    meuBotao.addEventListener('click', function() {
+  <!-- Conteúdo do formulário de adição de usuário -->
+  <div id="add-user-form" style="display:none;">
+    <form>
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required><br>
 
-      <?php
-                                                            //Onde eu acho que talvez seja o problema
-        $queryDelete = "DELETE FROM schemagym.dadosmatricula WHERE cpf=".$_REQUEST["cpf"];
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
 
-        $delete = pg_query($conn, $queryInsert);
+      <div>
+        <button type="button" onclick="saveUser()" class="button edit">Salvar</button>
+        <button type="button" onclick="closeAddUserModal()" class="button delete">Cancelar</button>
+      </div>
+    </form>
+  </div>
 
-        if($delete==true) {
-            print "<script>alert('Excluido com sucesso');</script>";
-            print "<script>location.href='?page=salvar&acao=excluir&cpf=".$row['cpf']."';</script>";
-        } else {
-            print "<script>alert('Não foi possível excluir');</script>";
-        }
+  <!-- Conteúdo do formulário de edição de usuário -->
+  <div id="edit-user-form" style="display:none;">
+    <form>
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required><br>
 
-      ?>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
 
-    });
+      <div>
+        <button type="button" onclick="saveUser()" class="button edit">Salvar</button>
+        <button type="button" onclick="closeAddUserModal()" class="button delete">Cancelar</button>
+      </div>
+    </form>
+  </div>
 
+  
+  <div id="delete-user-form" style="display:none;">
+    <form>
+      <p>Você tem certeza de que deseja excluir este usuário?</p>
+      <div>
+        <button type="button" onclick="deleteUser()" class="button delete">Confirmar Exclusão</button>
+        <button type="button" onclick="closeAddUserModal()" class="button edit">Cancelar</button>
+      </div>
+    </form>
+  </div>
 
-  </script>
-  <!-- <script src="script.js"></script> -->
 </body>
 </html>
